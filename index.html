@@ -2,10 +2,9 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Свадьба Сергея и Ксении</title>
     
-    <!-- Шрифты -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
@@ -19,9 +18,7 @@
         }
 
         html {
-            overflow-y: auto;
-            overflow-x: hidden;
-            -webkit-overflow-scrolling: touch;
+            -webkit-text-size-adjust: 100%;
         }
 
         body {
@@ -30,7 +27,6 @@
             scroll-behavior: smooth;
             color: #1a1a1a;
             width: 100%;
-            min-height: 100%;
             overflow-x: hidden;
             position: relative;
         }
@@ -100,7 +96,6 @@
             color: #ffffff;
             padding: 80px 20px;
             text-align: center;
-            /* Предотвращаем выход за границы из-за отрицательных margin */
             overflow-x: hidden;
         }
         .title-2 { font-family: 'Playfair Display', serif; font-size: 26px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 30px; }
@@ -110,8 +105,8 @@
             grid-template-columns: 1fr 1fr 1fr; 
             border-top: 1px solid rgba(255,255,255,0.15); 
             border-bottom: 1px solid rgba(255,255,255,0.15); 
-            margin: 0 -20px;
-            /* Компенсируем отрицательные отступы внутри контейнера с overflow: hidden */
+            margin: 0;
+            width: 100%;
         }
         .grid-item { padding: 30px 5px; display: flex; flex-direction: column; justify-content: center; align-items: center; border-right: 1px solid rgba(255,255,255,0.15); }
         .grid-item:last-child { border-right: none; }
@@ -462,7 +457,6 @@
 
     <div class="container">
         
-        <!-- БЛОК 1 -->
         <section class="block-1 fade-section" id="section1">
             <div class="date-top">24.07.2026</div>
             <div class="photo-wrapper" id="mainPhotoWrapper">
@@ -481,7 +475,6 @@
             </div>
         </section>
 
-        <!-- БЛОК 2 -->
         <section class="block-2 fade-section" id="section2">
             <h2 class="title-2">Дорогие наши<br>родные и близкие!</h2>
             <p class="description">В нашей жизни произойдёт важное и радостное событие — мы станем семьёй. И нам очень хочется разделить этот особенный день с вами!</p>
@@ -494,7 +487,6 @@
             </div>
         </section>
 
-        <!-- БЛОК 3 -->
         <section class="block-3 fade-section" id="section3">
             <div class="location-info">
                 <div class="city-name">г. Оса</div>
@@ -508,7 +500,6 @@
             </div>
         </section>
 
-        <!-- БЛОК 4: ПРОГРАММА ДНЯ -->
         <section class="section-program fade-section" id="section4">
             <div class="program-content">
                 <h2 class="program-title">Программа дня</h2>
@@ -530,7 +521,6 @@
             </div>
         </section>
 
-        <!-- БЛОК 5: ДРЕСС-КОД -->
         <section class="dresscode-details fade-section" id="section5">
             <h3 class="dresscode-title">Дресс-код</h3>
             <div class="dresscode-subtitle">свободный, вечерний</div>
@@ -540,7 +530,6 @@
             </p>
         </section>
 
-        <!-- БЛОК 6: АНКЕТА ГОСТЯ -->
         <section class="rsvp-section fade-section" id="section6">
             <h2 class="rsvp-title">Анкета гостя</h2>
             <div class="rsvp-deadline">подтвердить до 30.06.2026</div>
@@ -600,7 +589,6 @@
             </form>
         </section>
 
-        <!-- БЛОК 7: ТАЙМЕР ДО СВАДЬБЫ -->
         <section class="countdown-section fade-section" id="section7">
             <h2 class="countdown-title">До встречи</h2>
             <div class="countdown-subtitle">we are waiting</div>
@@ -698,10 +686,6 @@
 
             window.addEventListener('load', () => {
                 checkVisibility();
-                setTimeout(() => {
-                    document.body.style.minHeight = '101%';
-                    document.body.style.minHeight = '100%';
-                }, 100);
             });
 
             window.addEventListener('resize', checkVisibility);
