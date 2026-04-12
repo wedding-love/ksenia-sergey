@@ -18,9 +18,9 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-        /* Исправление скролла */
         html {
             overflow-y: auto;
+            overflow-x: hidden;
             -webkit-overflow-scrolling: touch;
         }
 
@@ -30,8 +30,9 @@
             scroll-behavior: smooth;
             color: #1a1a1a;
             width: 100%;
-            min-height: 100%;           /* обеспечивает корректную высоту */
+            min-height: 100%;
             overflow-x: hidden;
+            position: relative;
         }
 
         .container {
@@ -43,14 +44,18 @@
             position: relative;
         }
 
-        /* Анимация появления — БЕЗ will-change и с видимостью по умолчанию */
+        /* Гарантируем, что никакие элементы не вызывают горизонтальный скролл */
+        img, svg, video, canvas, iframe {
+            max-width: 100%;
+            height: auto;
+        }
+
         .fade-section {
-            opacity: 1;                  /* чтобы не было «схлопывания» высоты */
+            opacity: 1;
             transform: translateY(0);
             transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
-        /* Начальное скрытие будет добавлено через JS для элементов вне зоны видимости */
         .fade-section:not(.visible) {
             opacity: 0;
             transform: translateY(20px);
@@ -95,10 +100,19 @@
             color: #ffffff;
             padding: 80px 20px;
             text-align: center;
+            /* Предотвращаем выход за границы из-за отрицательных margin */
+            overflow-x: hidden;
         }
         .title-2 { font-family: 'Playfair Display', serif; font-size: 26px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 30px; }
         .description { font-weight: 300; font-size: 15px; line-height: 1.8; margin-bottom: 60px; color: #ccc; }
-        .calendar-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; border-top: 1px solid rgba(255,255,255,0.15); border-bottom: 1px solid rgba(255,255,255,0.15); margin: 0 -20px; }
+        .calendar-grid { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr 1fr; 
+            border-top: 1px solid rgba(255,255,255,0.15); 
+            border-bottom: 1px solid rgba(255,255,255,0.15); 
+            margin: 0 -20px;
+            /* Компенсируем отрицательные отступы внутри контейнера с overflow: hidden */
+        }
         .grid-item { padding: 30px 5px; display: flex; flex-direction: column; justify-content: center; align-items: center; border-right: 1px solid rgba(255,255,255,0.15); }
         .grid-item:last-child { border-right: none; }
         .day-val { font-family: 'Playfair Display', serif; font-size: 50px; }
@@ -148,6 +162,7 @@
             padding: 60px 0 0 0;
             text-align: center;
             position: relative;
+            overflow-x: hidden;
         }
 
         .program-title {
@@ -254,18 +269,6 @@
             color: #555;
             max-width: 380px;
             margin: 0 auto 45px;
-        }
-
-        .dresscode-note {
-            margin-top: 40px;
-            font-style: italic;
-            font-size: 13px;
-            color: #888;
-            border-top: 1px dashed #ddd;
-            padding-top: 30px;
-            max-width: 350px;
-            margin-left: auto;
-            margin-right: auto;
         }
 
         /* ---------- БЛОК 6: АНКЕТА ГОСТЯ ---------- */
@@ -408,17 +411,6 @@
             margin-bottom: 30px;
         }
 
-        .countdown-photo {
-            width: 120px;
-            height: 120px;
-            border-radius: 8px;
-            object-fit: cover;
-            margin: 0 auto 35px;
-            display: block;
-            border: 2px solid rgba(255,255,255,0.2);
-            filter: grayscale(100%);
-        }
-
         .timer-grid {
             display: flex;
             justify-content: center;
@@ -464,8 +456,6 @@
 </head>
 <body>
 
-    <!-- ... содержимое body остаётся без изменений ... -->
-
     <audio id="bgMusic" loop>
         <source src="музыка.mp3" type="audio/mpeg">
     </audio>
@@ -474,12 +464,171 @@
         
         <!-- БЛОК 1 -->
         <section class="block-1 fade-section" id="section1">
-            <!-- ... -->
+            <div class="date-top">24.07.2026</div>
+            <div class="photo-wrapper" id="mainPhotoWrapper">
+                <img src="молодожены.jpg" alt="Сергей и Ксения" class="couple-photo">
+            </div>
+            <div class="names-section">
+                <div class="line"><span class="name">СЕРГЕЙ</span><span class="script-text">and</span></div>
+                <div class="line"><span class="script-text">Wedding</span><span class="name">КСЕНИЯ</span></div>
+            </div>
+            <div class="player-container">
+                <div class="audio-btn" id="musicToggle">
+                    <svg id="playIcon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    <svg id="pauseIcon" viewBox="0 0 24 24" style="display:none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                </div>
+                <span class="player-label">Play Music</span>
+            </div>
         </section>
 
-        <!-- Все остальные блоки идентичны предыдущей версии -->
-        <!-- ... -->
+        <!-- БЛОК 2 -->
+        <section class="block-2 fade-section" id="section2">
+            <h2 class="title-2">Дорогие наши<br>родные и близкие!</h2>
+            <p class="description">В нашей жизни произойдёт важное и радостное событие — мы станем семьёй. И нам очень хочется разделить этот особенный день с вами!</p>
+            <div class="calendar-grid">
+                <div class="grid-item"><span class="day-val">24</span></div>
+                <div class="grid-item month-year"><span class="m-text">Июль</span><span class="y-text">2026</span></div>
+                <div class="grid-item">
+                    <svg class="heart-icon" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                </div>
+            </div>
+        </section>
 
+        <!-- БЛОК 3 -->
+        <section class="block-3 fade-section" id="section3">
+            <div class="location-info">
+                <div class="city-name">г. Оса</div>
+                <div class="venue-address">
+                    Кафе «Речник»
+                </div>
+                <a href="https://yandex.by/maps/20246/osa/?ll=55.428998%2C57.281724&mode=poi&poi%5Bpoint%5D=55.428791%2C57.281979&poi%5Buri%5D=ymapsbm1%3A%2F%2Forg%3Foid%3D190036015611&z=19.05" target="_blank" class="map-button">открыть карту</a>
+            </div>
+            <div class="venue-photo-wrapper">
+                <img src="усадьба.jpg" alt="Ресторан Усадьба" class="venue-photo">
+            </div>
+        </section>
+
+        <!-- БЛОК 4: ПРОГРАММА ДНЯ -->
+        <section class="section-program fade-section" id="section4">
+            <div class="program-content">
+                <h2 class="program-title">Программа дня</h2>
+                <div class="timeline">
+                    <div class="event"><span class="time">16:00</span><span class="event-name">Сбор гостей</span></div>
+                    <div class="timeline-line"></div>
+                    <div class="event"><span class="time">16:30</span><span class="event-name">Выездная регистрация</span></div>
+                    <div class="timeline-line"></div>
+                    <div class="event"><span class="time">17:00</span><span class="event-name">Банкет</span></div>
+                    <div class="timeline-line"></div>
+                    <div class="event"><span class="time">00:00</span><span class="event-name">Завершение вечера</span></div>
+                </div>
+            </div>
+            <div class="marquee-container">
+                <div class="marquee-wrapper">
+                    <div class="marquee-item"> • ДРЕСС-КОД: СВОБОДНЫЙ • ВЕЧЕРНИЕ НАРЯДЫ •</div>
+                    <div class="marquee-item"> • ДРЕСС-КОД: СВОБОДНЫЙ • ВЕЧЕРНИЕ НАРЯДЫ •</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- БЛОК 5: ДРЕСС-КОД -->
+        <section class="dresscode-details fade-section" id="section5">
+            <h3 class="dresscode-title">Дресс-код</h3>
+            <div class="dresscode-subtitle">свободный, вечерний</div>
+            <p class="dresscode-description">
+                Мы будем рады видеть вас в вечерних нарядах, в которых вы чувствуете себя уверенно и празднично. 
+                Никаких строгих правил — главное, чтобы вам было комфортно и радостно в этот день.
+            </p>
+        </section>
+
+        <!-- БЛОК 6: АНКЕТА ГОСТЯ -->
+        <section class="rsvp-section fade-section" id="section6">
+            <h2 class="rsvp-title">Анкета гостя</h2>
+            <div class="rsvp-deadline">подтвердить до 30.06.2026</div>
+
+            <form id="rsvpForm">
+                <div class="form-group">
+                    <label class="main-label">Ваше имя и фамилия</label>
+                    <input type="text" name="name" placeholder="Введите здесь..." required>
+                </div>
+
+                <div class="form-group">
+                    <label class="main-label">Присутствие</label>
+                    <label class="option-container radio">Обязательно буду
+                        <input type="radio" name="presence" value="yes" checked>
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="option-container radio">К сожалению, не получится
+                        <input type="radio" name="presence" value="no">
+                        <span class="checkmark"></span>
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label class="main-label">Предпочтения по напиткам</label>
+                    <label class="option-container">Игристое
+                        <input type="checkbox" name="drinks" value="sparkling">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="option-container">Вино красное
+                        <input type="checkbox" name="drinks" value="red-wine">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="option-container">Вино белое
+                        <input type="checkbox" name="drinks" value="white-wine">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="option-container">Виски
+                        <input type="checkbox" name="drinks" value="whiskey">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="option-container">Водка
+                        <input type="checkbox" name="drinks" value="vodka">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="option-container">Безалкогольные напитки
+                        <input type="checkbox" name="drinks" value="no-alcohol">
+                        <span class="checkmark"></span>
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label class="main-label">Есть ли у вас аллергии или особенности питания, которые важно учесть?</label>
+                    <textarea name="diet" placeholder="Напишите здесь..."></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">отправить</button>
+            </form>
+        </section>
+
+        <!-- БЛОК 7: ТАЙМЕР ДО СВАДЬБЫ -->
+        <section class="countdown-section fade-section" id="section7">
+            <h2 class="countdown-title">До встречи</h2>
+            <div class="countdown-subtitle">we are waiting</div>
+            
+            <div class="timer-grid" id="timer">
+                <div class="timer-item">
+                    <div class="timer-number" id="days">00</div>
+                    <div class="timer-label">дней</div>
+                </div>
+                <div class="timer-item">
+                    <div class="timer-number" id="hours">00</div>
+                    <div class="timer-label">часов</div>
+                </div>
+                <div class="timer-item">
+                    <div class="timer-number" id="minutes">00</div>
+                    <div class="timer-label">минут</div>
+                </div>
+                <div class="timer-item">
+                    <div class="timer-number" id="seconds">00</div>
+                    <div class="timer-label">секунд</div>
+                </div>
+            </div>
+            <p class="countdown-message">
+                С нетерпением ждём этот особенный день,<br>чтобы разделить его с вами.
+            </p>
+        </section>
+
+        <div class="spacer"></div>
     </div>
 
     <script>
@@ -531,7 +680,6 @@
             sections.forEach(section => observer.observe(section));
             if (photoWrapper) observer.observe(photoWrapper);
 
-            // Принудительно показываем всё, что видно при загрузке
             function checkVisibility() {
                 sections.forEach(section => {
                     const rect = section.getBoundingClientRect();
@@ -550,17 +698,15 @@
 
             window.addEventListener('load', () => {
                 checkVisibility();
-                // Небольшая задержка для пересчёта макета (помогает скроллу)
                 setTimeout(() => {
                     document.body.style.minHeight = '101%';
                     document.body.style.minHeight = '100%';
                 }, 100);
             });
 
-            // Также запускаем после изменения размера
             window.addEventListener('resize', checkVisibility);
 
-            // --- ТАЙМЕР ОБРАТНОГО ОТСЧЁТА (ДАТА 24.07.2026) ---
+            // --- ТАЙМЕР ОБРАТНОГО ОТСЧЁТА (24.07.2026) ---
             const weddingDate = new Date(2026, 6, 24, 15, 0, 0).getTime();
 
             const daysEl = document.getElementById('days');
