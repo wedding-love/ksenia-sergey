@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Свадьба Сергея и Ксении</title>
     
+    <!-- Шрифты -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
@@ -40,12 +41,12 @@
             position: relative;
         }
 
-        img, svg, video, canvas, iframe {
+        img, svg {
             max-width: 100%;
             height: auto;
         }
 
-        /* ---------- ПЛАВНОЕ ПОЯВЛЕНИЕ (только opacity) ---------- */
+        /* ---------- ПЛАВНОЕ ПОЯВЛЕНИЕ ---------- */
         .fade-section {
             opacity: 1;
             transition: opacity 0.7s ease;
@@ -55,37 +56,106 @@
             opacity: 0;
         }
 
-        /* Отдельный класс для фото (плавное появление) */
-        .photo-wrapper {
-            opacity: 1;
-            transition: opacity 0.8s ease;
-        }
-
-        .photo-wrapper:not(.visible) {
-            opacity: 0;
-        }
-
-        /* ---------- БЛОК 1 (Приветствие) ---------- */
+        /* ---------- БЛОК 1 (Имена + плеер) – без фото ---------- */
         .block-1 {
-            padding: 40px 20px 60px;
+            padding: 50px 20px 60px;
             text-align: center;
             background-color: #FFFFFF;
         }
 
-        .date-top { font-size: 18px; letter-spacing: 2px; margin-bottom: 25px; color: #333; }
-        .photo-wrapper { width: 100%; margin-bottom: 40px; }
-        .couple-photo { width: 100%; display: block; filter: grayscale(100%); border-radius: 0; }
+        .date-top { 
+            font-size: 18px; 
+            letter-spacing: 3px; 
+            margin-bottom: 30px; 
+            color: #333; 
+            font-weight: 300;
+        }
 
-        .names-section { display: flex; flex-direction: column; align-items: center; margin-bottom: 30px; }
-        .line { display: flex; align-items: baseline; gap: 10px; }
-        .name { font-family: 'Playfair Display', serif; font-size: clamp(24px, 7vw, 32px); text-transform: uppercase; letter-spacing: 2px; }
-        .script-text { font-family: 'Great Vibes', cursive; font-size: clamp(32px, 10vw, 45px); color: #555; }
+        /* Имена — красивое адаптивное расположение */
+        .names-wrapper {
+            margin-bottom: 35px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
-        .player-container { display: flex; flex-direction: column; align-items: center; gap: 8px; }
-        .audio-btn { width: 50px; height: 50px; border: 1px solid #1a1a1a; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; background: transparent; transition: background 0.2s; }
-        .audio-btn:hover { background-color: #f5f5f5; }
-        .audio-btn svg { width: 20px; height: 20px; fill: #1a1a1a; }
-        .player-label { font-size: 10px; text-transform: uppercase; letter-spacing: 2px; color: #888; }
+        .line {
+            display: flex;
+            align-items: baseline;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 8px 12px;
+        }
+
+        .name {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(26px, 9vw, 38px);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-weight: 400;
+            color: #1a1a1a;
+            line-height: 1.2;
+        }
+
+        .script-text {
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(36px, 12vw, 52px);
+            color: #555;
+            font-weight: 400;
+            line-height: 1;
+            margin: 0 2px;
+        }
+
+        /* Адаптив для имён на маленьких экранах */
+        @media (max-width: 360px) {
+            .line {
+                flex-direction: column;
+                gap: 2px;
+            }
+            .script-text {
+                font-size: 42px;
+            }
+        }
+
+        /* Плеер */
+        .player-container { 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            gap: 10px; 
+        }
+
+        .audio-btn { 
+            width: 58px; 
+            height: 58px; 
+            border: 1.5px solid #1a1a1a; 
+            border-radius: 50%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            cursor: pointer; 
+            background: transparent; 
+            transition: all 0.25s ease; 
+        }
+
+        .audio-btn:hover { 
+            background-color: #f5f5f5; 
+            transform: scale(1.02);
+        }
+
+        .audio-btn svg { 
+            width: 24px; 
+            height: 24px; 
+            fill: #1a1a1a; 
+        }
+
+        .player-label { 
+            font-size: 11px; 
+            text-transform: uppercase; 
+            letter-spacing: 3px; 
+            color: #888; 
+            font-weight: 300;
+        }
 
         /* ---------- БЛОК 2 (Дата и Сердце) ---------- */
         .block-2 {
@@ -263,7 +333,7 @@
             margin: 0 auto 45px;
         }
 
-        /* ---------- БЛОК 6: АНКЕТА ГОСТЯ ---------- */
+        /* ---------- БЛОК 6: АНКЕТА ГОСТЯ (Formspree) ---------- */
         .rsvp-section {
             width: 100%;
             max-width: 450px;
@@ -448,21 +518,30 @@
 </head>
 <body>
 
+    <!-- Аудиоплеер (скрытый элемент) -->
     <audio id="bgMusic" loop>
         <source src="музыка.mp3" type="audio/mpeg">
     </audio>
 
     <div class="container">
         
+        <!-- БЛОК 1: ИМЕНА + ПЛЕЕР (ФОТО УДАЛЕНО) -->
         <section class="block-1 fade-section" id="section1">
             <div class="date-top">24.07.2026</div>
-            <div class="photo-wrapper" id="mainPhotoWrapper">
-                <img src="молодожены.jpg" alt="Сергей и Ксения" class="couple-photo">
+            
+            <!-- Имена в красивом адаптивном блоке -->
+            <div class="names-wrapper">
+                <div class="line">
+                    <span class="name">СЕРГЕЙ</span>
+                    <span class="script-text">and</span>
+                </div>
+                <div class="line">
+                    <span class="script-text">Wedding</span>
+                    <span class="name">КСЕНИЯ</span>
+                </div>
             </div>
-            <div class="names-section">
-                <div class="line"><span class="name">СЕРГЕЙ</span><span class="script-text">and</span></div>
-                <div class="line"><span class="script-text">Wedding</span><span class="name">КСЕНИЯ</span></div>
-            </div>
+            
+            <!-- Плеер (без фото) -->
             <div class="player-container">
                 <div class="audio-btn" id="musicToggle">
                     <svg id="playIcon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
@@ -472,6 +551,7 @@
             </div>
         </section>
 
+        <!-- БЛОК 2: ПРИВЕТСТВИЕ + КАЛЕНДАРЬ -->
         <section class="block-2 fade-section" id="section2">
             <h2 class="title-2">Дорогие наши<br>родные и близкие!</h2>
             <p class="description">В нашей жизни произойдёт важное и радостное событие — мы станем семьёй. И нам очень хочется разделить этот особенный день с вами!</p>
@@ -484,6 +564,7 @@
             </div>
         </section>
 
+        <!-- БЛОК 3: ЛОКАЦИЯ -->
         <section class="block-3 fade-section" id="section3">
             <div class="location-info">
                 <div class="city-name">г. Оса</div>
@@ -497,6 +578,7 @@
             </div>
         </section>
 
+        <!-- БЛОК 4: ПРОГРАММА + БЕГУЩАЯ СТРОКА -->
         <section class="section-program fade-section" id="section4">
             <div class="program-content">
                 <h2 class="program-title">Программа дня</h2>
@@ -518,6 +600,7 @@
             </div>
         </section>
 
+        <!-- БЛОК 5: ДРЕСС-КОД -->
         <section class="dresscode-details fade-section" id="section5">
             <h3 class="dresscode-title">Дресс-код</h3>
             <div class="dresscode-subtitle">свободный, вечерний</div>
@@ -527,11 +610,13 @@
             </p>
         </section>
 
+        <!-- БЛОК 6: АНКЕТА (FORMSPREE) -->
         <section class="rsvp-section fade-section" id="section6">
             <h2 class="rsvp-title">Анкета гостя</h2>
             <div class="rsvp-deadline">подтвердить до 30.06.2026</div>
 
-            <form id="rsvpForm">
+            <!-- Formspree action и method POST -->
+            <form id="rsvpForm" action="https://formspree.io/f/mpqkwwqy" method="POST">
                 <div class="form-group">
                     <label class="main-label">Ваше имя и фамилия</label>
                     <input type="text" name="name" placeholder="Введите здесь..." required>
@@ -582,10 +667,15 @@
                     <textarea name="diet" placeholder="Напишите здесь..."></textarea>
                 </div>
 
+                <!-- Дополнительные скрытые поля для Formspree (необязательно, но улучшает) -->
+                <input type="hidden" name="_subject" value="Новая анкета со свадебного сайта">
+                <input type="text" name="_gotcha" style="display:none">
+
                 <button type="submit" class="submit-btn">отправить</button>
             </form>
         </section>
 
+        <!-- БЛОК 7: ТАЙМЕР -->
         <section class="countdown-section fade-section" id="section7">
             <h2 class="countdown-title">До встречи</h2>
             <div class="countdown-subtitle">we are waiting</div>
@@ -634,6 +724,7 @@
                             label.textContent = 'Pause Music';
                         }).catch(e => {
                             console.warn('Автовоспроизведение заблокировано.');
+                            // даже при блокировке показываем паузу (пользователь кликнул)
                             playIco.style.display = 'none';
                             pauseIco.style.display = 'block';
                             label.textContent = 'Pause Music';
@@ -647,44 +738,30 @@
                 });
             }
 
-            // --- ПЛАВНОЕ ПОЯВЛЕНИЕ ПРИ СКРОЛЛЕ (только opacity) ---
+            // --- Плавное появление при скролле ---
             const sections = document.querySelectorAll('.fade-section');
-            const photoWrapper = document.getElementById('mainPhotoWrapper');
             
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('visible');
-                        if (entry.target.id === 'section1' && photoWrapper) {
-                            photoWrapper.classList.add('visible');
-                        }
                     }
                 });
             }, { threshold: 0.1, rootMargin: '0px 0px -10px 0px' });
 
             sections.forEach(section => observer.observe(section));
-            if (photoWrapper) observer.observe(photoWrapper);
 
-            // Дополнительная проверка для уже видимых элементов при загрузке
+            // Проверка видимости при загрузке
             function checkInitialVisibility() {
                 sections.forEach(section => {
                     const rect = section.getBoundingClientRect();
                     if (rect.top < window.innerHeight * 0.9) {
                         section.classList.add('visible');
-                        if (section.id === 'section1' && photoWrapper) {
-                            photoWrapper.classList.add('visible');
-                        }
                     }
                 });
-                if (photoWrapper) {
-                    const rect = photoWrapper.getBoundingClientRect();
-                    if (rect.top < window.innerHeight * 0.9) photoWrapper.classList.add('visible');
-                }
             }
 
-            window.addEventListener('load', () => {
-                checkInitialVisibility();
-            });
+            window.addEventListener('load', checkInitialVisibility);
             window.addEventListener('resize', checkInitialVisibility);
 
             // --- ТАЙМЕР ОБРАТНОГО ОТСЧЁТА (24.07.2026) ---
@@ -722,12 +799,12 @@
             const timerInterval = setInterval(updateTimer, 1000);
             window.addEventListener('beforeunload', () => clearInterval(timerInterval));
 
-            // --- ОБРАБОТКА АНКЕТЫ (демо) ---
+            // --- Форма теперь отправляется на Formspree, демо-алерт убран ---
             const form = document.getElementById('rsvpForm');
             if (form) {
                 form.addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    alert('Спасибо! Ваша анкета отправлена. (Демо-режим)');
+                    // Можно оставить, но лучше не мешать Formspree
+                    // alert убран, чтобы не дублировать поведение
                 });
             }
         })();
