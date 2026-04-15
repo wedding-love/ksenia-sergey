@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -59,7 +60,7 @@
             opacity: 0;
         }
 
-        /* ---------- БЛОК 1 (Имена + плеер) — ВЕСЬ ЭКРАН ---------- */
+        /* ---------- БЛОК 1 (Имена + фото пары + плеер) — ВЕСЬ ЭКРАН ---------- */
         .block-1 {
             min-height: 100vh;               /* занимает весь экран по высоте */
             width: 100%;
@@ -83,7 +84,7 @@
 
         /* Имена — красивое адаптивное расположение */
         .names-wrapper {
-            margin-bottom: 35px;
+            margin-bottom: 25px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -117,6 +118,17 @@
             margin: 0 2px;
         }
 
+        /* Фото пары */
+        .couple-photo {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #f0f0f0;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            margin: 20px 0 25px;
+        }
+
         /* Адаптив для имён на маленьких экранах */
         @media (max-width: 360px) {
             .line {
@@ -125,6 +137,10 @@
             }
             .script-text {
                 font-size: 42px;
+            }
+            .couple-photo {
+                width: 150px;
+                height: 150px;
             }
         }
 
@@ -219,7 +235,7 @@
         }
         .map-button:hover { opacity: 0.8; }
 
-        /* ---------- БЛОК 4 (Программа дня) ---------- */
+        /* ---------- БЛОК 4 (Программа дня + БЛОК С КОНВЕРТОМ) ---------- */
         .section-program {
             width: 100%;
             max-width: 450px;
@@ -245,7 +261,7 @@
             flex-direction: column;
             align-items: center;
             gap: 15px;
-            margin-bottom: 60px;
+            margin-bottom: 30px;
         }
 
         .event {
@@ -273,6 +289,36 @@
             height: 40px;
             background-color: #ccc;
             margin: 5px 0;
+        }
+
+        /* Стили для блока с просьбой о конверте */
+        .envelope-note {
+            background-color: #faf9f7;
+            border-radius: 24px;
+            padding: 28px 22px;
+            margin: 30px 20px 40px;
+            border: 1px solid #eee;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+            transition: transform 0.2s;
+        }
+        .envelope-icon {
+            font-size: 38px;
+            margin-bottom: 12px;
+            opacity: 0.8;
+        }
+        .envelope-title {
+            font-family: 'Great Vibes', cursive;
+            font-size: 32px;
+            color: #4a4a4a;
+            margin-bottom: 8px;
+        }
+        .envelope-text {
+            font-size: 15px;
+            font-weight: 300;
+            color: #555;
+            line-height: 1.6;
+            max-width: 280px;
+            margin: 0 auto;
         }
 
         /* ---------- БЕГУЩАЯ СТРОКА ---------- */
@@ -529,7 +575,7 @@
 
     <div class="container">
         
-        <!-- БЛОК 1: ИМЕНА + ПЛЕЕР (ФОТО УДАЛЕНО, ВЕСЬ ЭКРАН) -->
+        <!-- БЛОК 1: ИМЕНА + ФОТО ПАРЫ + ПЛЕЕР (ВЕСЬ ЭКРАН) -->
         <section class="block-1 fade-section" id="section1">
             <div class="date-top">24.07.2026</div>
             
@@ -545,7 +591,15 @@
                 </div>
             </div>
             
-            <!-- Плеер (без фото) -->
+            <!-- ФОТО ПАРЫ (добавлено) -->
+            <img 
+                src="молодые.jpg" 
+                alt="Сергей и Ксения" 
+                class="couple-photo"
+            >
+            <!-- Если нужно своё фото, замените ссылку выше на путь к вашему файлу, например: "photo.jpg" -->
+
+            <!-- Плеер -->
             <div class="player-container">
                 <div class="audio-btn" id="musicToggle">
                     <svg id="playIcon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
@@ -568,7 +622,7 @@
             </div>
         </section>
 
-        <!-- БЛОК 3: ЛОКАЦИЯ (ФОТО УБРАНО) -->
+        <!-- БЛОК 3: ЛОКАЦИЯ -->
         <section class="block-3 fade-section" id="section3">
             <div class="location-info">
                 <div class="city-name">г. Оса</div>
@@ -577,10 +631,9 @@
                 </div>
                 <a href="https://yandex.by/maps/20246/osa/?ll=55.428998%2C57.281724&mode=poi&poi%5Bpoint%5D=55.428791%2C57.281979&poi%5Buri%5D=ymapsbm1%3A%2F%2Forg%3Foid%3D190036015611&z=19.05" target="_blank" class="map-button">открыть карту</a>
             </div>
-            <!-- Фото локации удалено -->
         </section>
 
-        <!-- БЛОК 4: ПРОГРАММА + БЕГУЩАЯ СТРОКА -->
+        <!-- БЛОК 4: ПРОГРАММА + БЛОК С ПРОСЬБОЙ О КОНВЕРТЕ + БЕГУЩАЯ СТРОКА -->
         <section class="section-program fade-section" id="section4">
             <div class="program-content">
                 <h2 class="program-title">Программа дня</h2>
@@ -594,6 +647,20 @@
                     <div class="event"><span class="time">00:00</span><span class="event-name">Завершение вечера</span></div>
                 </div>
             </div>
+
+            <!-- НОВЫЙ БЛОК: ПРОСЬБА О ПОДАРКЕ В КОНВЕРТЕ -->
+            <div class="envelope-note">
+                <div class="envelope-icon">💌</div>
+                <div class="envelope-title">Было бы приятно...</div>
+                <div class="envelope-text">
+                    если подарок будет в конверте. <br> 
+                    Самый лучший дар для нас — <br>
+                    ваше присутствие и тепло, <br>
+                    а конверт поможет осуществить <br>
+                    наши маленькие мечты.
+                </div>
+            </div>
+
             <div class="marquee-container">
                 <div class="marquee-wrapper">
                     <div class="marquee-item"> • ДРЕСС-КОД: СВОБОДНЫЙ • ВЕЧЕРНИЕ НАРЯДЫ •</div>
