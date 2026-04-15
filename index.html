@@ -59,7 +59,7 @@
             opacity: 0;
         }
 
-        /* ---------- БЛОК 1 (Имена + большое вертикальное фото + плеер) ---------- */
+        /* ---------- БЛОК 1 (Имена + ФОТО (уменьшено) + плеер) ---------- */
         .block-1 {
             min-height: 100vh;               
             width: 100%;
@@ -69,14 +69,14 @@
             justify-content: center;          
             text-align: center;
             background-color: #FFFFFF;
-            padding: 30px 0 20px;             /* убрали боковые отступы, чтобы фото было на всю ширину */
+            padding: 20px 0 20px;             /* уменьшили верхний отступ */
             box-sizing: border-box;
         }
 
         .date-top { 
             font-size: 18px; 
             letter-spacing: 3px; 
-            margin-bottom: 30px; 
+            margin-bottom: 20px; 
             color: #333; 
             font-weight: 300;
             padding: 0 20px;
@@ -84,7 +84,7 @@
 
         /* Имена */
         .names-wrapper {
-            margin-bottom: 25px;
+            margin-bottom: 15px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -102,7 +102,7 @@
 
         .name {
             font-family: 'Playfair Display', serif;
-            font-size: clamp(26px, 9vw, 38px);
+            font-size: clamp(24px, 8vw, 34px);
             text-transform: uppercase;
             letter-spacing: 4px;
             font-weight: 400;
@@ -112,24 +112,23 @@
 
         .script-text {
             font-family: 'Great Vibes', cursive;
-            font-size: clamp(36px, 12vw, 52px);
+            font-size: clamp(32px, 10vw, 46px);
             color: #555;
             font-weight: 400;
             line-height: 1;
             margin: 0 2px;
         }
 
-        /* БОЛЬШОЕ ВЕРТИКАЛЬНОЕ ФОТО (прямоугольное) */
+        /* УМЕНЬШЕННОЕ ВЕРТИКАЛЬНОЕ ФОТО (чтобы плеер был на экране) */
         .main-vertical-photo {
-            width: 100%;
-            max-width: 450px;
-            margin: 15px 0 25px;
+            width: 90%;                    /* не на всю ширину, а 90% */
+            max-width: 380px;              /* ограничение по ширине */
+            margin: 10px auto 15px;
             display: block;
             object-fit: cover;
-            /* соотношение сторон ~ 3:4 (вертикальное) */
-            aspect-ratio: 3 / 4; 
+            aspect-ratio: 3 / 4.2;         /* чуть более вытянутое, но занимает меньше места по высоте */
             border: none;
-            box-shadow: 0 12px 24px -8px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 20px -8px rgba(0,0,0,0.08);
         }
 
         /* Адаптив для имён */
@@ -139,7 +138,10 @@
                 gap: 2px;
             }
             .script-text {
-                font-size: 42px;
+                font-size: 38px;
+            }
+            .main-vertical-photo {
+                width: 85%;
             }
         }
 
@@ -148,13 +150,14 @@
             display: flex; 
             flex-direction: column; 
             align-items: center; 
-            gap: 10px; 
+            gap: 8px; 
             padding: 0 20px;
+            margin-top: 5px;
         }
 
         .audio-btn { 
-            width: 58px; 
-            height: 58px; 
+            width: 56px; 
+            height: 56px; 
             border: 1.5px solid #1a1a1a; 
             border-radius: 50%; 
             display: flex; 
@@ -235,7 +238,7 @@
         }
         .map-button:hover { opacity: 0.8; }
 
-        /* ---------- БЛОК 4 (Программа дня + БЛОК ПОЖЕЛАНИЕ) ---------- */
+        /* ---------- БЛОК 4 (Программа дня) ---------- */
         .section-program {
             width: 100%;
             max-width: 450px;
@@ -291,35 +294,6 @@
             margin: 5px 0;
         }
 
-        /* Стили для блока ПОЖЕЛАНИЕ (без значка, строгий стиль) */
-        .wish-note {
-            background-color: #faf9f7;
-            border-radius: 0;           /* строгие прямые углы, как и общий стиль */
-            padding: 32px 24px;
-            margin: 30px 20px 40px;
-            border: 1px solid #e0e0e0;
-            box-shadow: none;
-            text-align: center;
-        }
-        
-        .wish-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 22px;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-bottom: 20px;
-            color: #1a1a1a;
-        }
-        
-        .wish-text {
-            font-size: 15px;
-            font-weight: 300;
-            color: #444;
-            line-height: 1.7;
-            max-width: 300px;
-            margin: 0 auto;
-        }
-
         /* ---------- БЕГУЩАЯ СТРОКА ---------- */
         .marquee-container {
             width: 100%;
@@ -353,7 +327,7 @@
         /* ---------- БЛОК 5: ДРЕСС-КОД ---------- */
         .dresscode-details {
             background-color: #FFFFFF;
-            padding: 50px 20px 60px;
+            padding: 50px 20px 40px;
             text-align: center;
         }
 
@@ -379,7 +353,43 @@
             line-height: 1.7;
             color: #555;
             max-width: 380px;
-            margin: 0 auto 45px;
+            margin: 0 auto 30px;
+        }
+
+        /* ---------- БЛОК "ПОЖЕЛАНИЕ" (теперь после дресс-кода) ---------- */
+        .wish-section {
+            background-color: #FFFFFF;
+            padding: 10px 20px 60px;
+            text-align: center;
+        }
+        
+        .wish-note {
+            background-color: #faf9f7;
+            border-radius: 0;
+            padding: 32px 24px;
+            margin: 0 auto;
+            max-width: 400px;
+            border: 1px solid #e0e0e0;
+            box-shadow: none;
+            text-align: center;
+        }
+        
+        .wish-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+            color: #1a1a1a;
+        }
+        
+        .wish-text {
+            font-size: 15px;
+            font-weight: 300;
+            color: #444;
+            line-height: 1.7;
+            max-width: 300px;
+            margin: 0 auto;
         }
 
         /* ---------- БЛОК 6: АНКЕТА ГОСТЯ (Formspree) ---------- */
@@ -387,7 +397,7 @@
             width: 100%;
             max-width: 450px;
             margin: 0 auto;
-            padding: 60px 25px 70px;
+            padding: 0 25px 70px;
             box-sizing: border-box;
             background-color: #FFFFFF;
         }
@@ -574,7 +584,7 @@
 
     <div class="container">
         
-        <!-- БЛОК 1: ИМЕНА + БОЛЬШОЕ ВЕРТИКАЛЬНОЕ ФОТО + ПЛЕЕР -->
+        <!-- БЛОК 1: ИМЕНА + ФОТО (УМЕНЬШЕНО) + ПЛЕЕР (теперь всё влезает) -->
         <section class="block-1 fade-section" id="section1">
             <div class="date-top">24.07.2026</div>
             
@@ -589,13 +599,12 @@
                 </div>
             </div>
             
-            <!-- БОЛЬШОЕ ВЕРТИКАЛЬНОЕ ФОТО (прямоугольное) -->
+            <!-- УМЕНЬШЕННОЕ ВЕРТИКАЛЬНОЕ ФОТО -->
             <img 
-                src="https://images.pexels.com/photos/3170635/pexels-photo-3170635.jpeg?auto=compress&cs=tinysrgb&w=600" 
+                src="молодые.jpg" 
                 alt="Сергей и Ксения" 
                 class="main-vertical-photo"
             >
-            <!-- Для замены на своё фото: укажите путь к файлу в src -->
 
             <!-- Плеер -->
             <div class="player-container">
@@ -631,7 +640,7 @@
             </div>
         </section>
 
-        <!-- БЛОК 4: ПРОГРАММА + БЛОК "ПОЖЕЛАНИЕ" + БЕГУЩАЯ СТРОКА -->
+        <!-- БЛОК 4: ПРОГРАММА + БЕГУЩАЯ СТРОКА (БЕЗ ПОЖЕЛАНИЯ) -->
         <section class="section-program fade-section" id="section4">
             <div class="program-content">
                 <h2 class="program-title">Программа дня</h2>
@@ -643,16 +652,6 @@
                     <div class="event"><span class="time">17:00</span><span class="event-name">Банкет</span></div>
                     <div class="timeline-line"></div>
                     <div class="event"><span class="time">00:00</span><span class="event-name">Завершение вечера</span></div>
-                </div>
-            </div>
-
-            <!-- БЛОК ПОЖЕЛАНИЕ (без значка, в стиле сайта) -->
-            <div class="wish-note">
-                <div class="wish-title">Пожелание</div>
-                <div class="wish-text">
-                    Было бы приятно, если подарок будет в конверте.<br>
-                    Самый лучший дар для нас — ваше присутствие и тепло,<br>
-                    а конверт поможет осуществить наши маленькие мечты.
                 </div>
             </div>
 
@@ -672,6 +671,18 @@
                 Мы будем рады видеть вас в вечерних нарядах, в которых вы чувствуете себя уверенно и празднично. 
                 Никаких строгих правил — главное, чтобы вам было комфортно и радостно в этот день.
             </p>
+        </section>
+
+        <!-- БЛОК "ПОЖЕЛАНИЕ" (ТЕПЕРЬ ПОСЛЕ ДРЕСС-КОДА) -->
+        <section class="wish-section fade-section" id="wish">
+            <div class="wish-note">
+                <div class="wish-title">Пожелание</div>
+                <div class="wish-text">
+                    Было бы приятно, если подарок будет в конверте.<br>
+                    Самый лучший дар для нас — ваше присутствие и тепло,<br>
+                    а конверт поможет осуществить наши маленькие мечты.
+                </div>
+            </div>
         </section>
 
         <!-- БЛОК 6: АНКЕТА (FORMSPREE) -->
